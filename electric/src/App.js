@@ -2,6 +2,7 @@ import { createGlobalStyle} from 'styled-components';
 import {RecoilRoot} from 'recoil';
 import Banner from './component/banner/Banner';
 import ImageSlide from './component/ImageSlide/ImageSlide';
+import Main from './component/main/Main';
 
 const GlobalStyle = createGlobalStyle`
   *{
@@ -26,6 +27,7 @@ function App() {
           <>
           <Banner />
           <ImageSlide />
+          <Main />
           </>
         }
 
