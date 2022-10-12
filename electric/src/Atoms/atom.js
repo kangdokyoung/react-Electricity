@@ -1,8 +1,5 @@
 import {
-    atom,
-    atomFamily,
-    selector,
-    selectorFamily,
+    atom
   } from 'recoil';
 
   
@@ -12,11 +9,11 @@ export const modalTemperature = atom({
   });
 
 export const modalweekend = atom({
-    key : 'main/modalTemp',
+    key : 'main/modalWeek',
     default : false,
   });
 
 export const modalvariable = atom({
-    key : 'main/modalTemp',
+    key : 'main/ModalVar',
     default : false,
   });

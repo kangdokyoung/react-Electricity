@@ -2,7 +2,7 @@ import React from "react";
 import styled from 'styled-components';
 
 const Snav = styled.div`
-    height: 100px;
+    height: 90px;
     width: 100vw;
     display: flex;
     background-color:#4FCBF2;

@@ -3,8 +3,10 @@ import styled from "styled-components";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import ModalTemp from "./modal/ModalTemp";
+import ModalVar from "./modal/ModalVar";
+import ModalWeek from "./modal/ModalWeek";
 import { useRecoilState } from "recoil";
-import { modalTemperature } from "../../Atoms/atom";
+import { modalTemperature, modalvariable, modalweekend } from "../../Atoms/atom";
 
 const Sul = styled.ul`
     display:flex;
@@ -49,7 +51,9 @@ const SinnerC = styled.div`
 `
 
 const Main = ()=>{
-    const [temp, setTemp] = useRecoilState(modalTemperature);
+    const [, setTemp] = useRecoilState(modalTemperature);
+    const [, setWeek] = useRecoilState(modalweekend);
+    const [, setVar] = useRecoilState(modalvariable);
     useEffect(()=>{
         AOS.init();
     },[])
@@ -57,7 +61,6 @@ const Main = ()=>{
 
     return(
         <>
-        <ModalTemp />
         <Sli>
             전력은 산업에서 가장 필요한 에너지원 입니다.<br />
             전력 수요와 공급이 알맞게 배정되어야 낭비되는 전기를 줄일 수 있습니다.<br />
@@ -74,6 +77,9 @@ const Main = ()=>{
                 전력 수요는 시간과 장소에 따라 계속해서 변합니다.<br />
                 어떤 요소들이 전력 사용량에 영향을 끼치는지 알아봅시다.
             </Sli>
+            <ModalTemp />
+            <ModalVar />
+            <ModalWeek />
             <Sul>
                 <Sli data-aos="fade-down" data-aos-easing="linear" data-aos-duration="800" >
                     <Scircle onClick={()=>{setTemp(true)}}>
@@ -83,14 +89,14 @@ const Main = ()=>{
                     </Scircle>
                 </Sli>
                 <Sli data-aos="fade-down" data-aos-easing="linear" data-aos-duration="1000" >
-                    <Scircle>
+                    <Scircle onClick={()=>{setWeek(true)}}>
                         <SinnerC>
                             휴일
                         </SinnerC>
                     </Scircle>
                 </Sli>
                 <Sli data-aos="fade-down" data-aos-easing="linear" data-aos-duration="1200" >
-                    <Scircle>
+                    <Scircle onClick={()=>{setVar(true)}}>
                         <SinnerC>
                             한국에서의 전력변수
                         </SinnerC>
