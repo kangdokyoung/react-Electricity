@@ -6,12 +6,15 @@ import ModalTemp from "./modal/ModalTemp";
 import ModalVar from "./modal/ModalVar";
 import ModalWeek from "./modal/ModalWeek";
 import { useRecoilState } from "recoil";
-import { modalTemperature, modalvariable, modalweekend } from "../../Atoms/atom";
+import { modalgrid, modalserv, modalTemperature, modalvariable, modalweekend } from "../../Atoms/atom";
+import ModalGrid from "./modal/ModalGrid";
+import ModalServ from "./modal/ModalServ";
+import { Link } from "react-router-dom";
 
 const Sul = styled.ul`
     display:flex;
     list-style-type: none;
-    justify-content: space-between;
+    justify-content: space-around;
 `
 
 const Sli = styled.li`
@@ -23,6 +26,7 @@ const Sli = styled.li`
 
 const Scontainor = styled.div`
     background-color: rgba(138, 248, 255, 0.2);
+    padding-bottom: 20px;
 `
 
 const SsubTitle = styled. h2`
@@ -50,10 +54,62 @@ const SinnerC = styled.div`
     transform: translateY(111px);
 `
 
+const Scontainorb = styled.div`
+
+`
+
+const SsubTitleb = styled.h2`
+    text-align:center;
+    padding-top: 20px;
+`
+
+const Ssquare = styled.div`
+    text-align: center;
+    margin-left: 90px;
+    width: 250px;
+    height: 250px;
+    border-radius: 50px;
+    background-color: rgba(5, 255, 0, 0.7);
+    font-size: 15px;
+    color:black;
+    transition: all 0.2s linear;
+    cursor: pointer;
+    :hover{
+        transform:scale(1.1);
+    }
+`
+
+const SinnerS = styled.div`
+    transform: translateY(111px);
+`
+
+const Slink = styled.div`
+    margin-top: 30px;
+    margin-bottom: 80px;
+    text-align: center;
+    margin-left: 90px;
+    width: 250px;
+    height: 50px;
+    border-radius: 50px;
+    background-color: #595959;
+    font-size: 15px;
+    color:white;
+    transition: all 0.2s linear;
+    cursor:pointer;
+    :hover{
+        transform:scale(1.1);
+    }
+`
+
+const SinnerShortC = styled.div`
+    transform: translateY(5px);
+`
 const Main = ()=>{
     const [, setTemp] = useRecoilState(modalTemperature);
     const [, setWeek] = useRecoilState(modalweekend);
     const [, setVar] = useRecoilState(modalvariable);
+    const [, setGrid] = useRecoilState(modalgrid);
+    const [, setServ] = useRecoilState(modalserv);
     useEffect(()=>{
         AOS.init();
     },[])
@@ -103,7 +159,42 @@ const Main = ()=>{
                     </Scircle>
                 </Sli>
             </Sul>
-        </Scontainor>
+            </Scontainor>
+            <Scontainorb>
+                <SsubTitleb>
+                    전력 수요 예측으로 개발 될 사업
+                </SsubTitleb>
+                <Sli>
+                    필요한 만큼 공급하고 필요한 만큼 사용하는 것이 좋습니다.<br />
+                    전력 수요와 공급 을 원활히 하기위한 사업들은 뭐가 있을까요?
+                </Sli>
+                <ModalGrid />
+                <ModalServ />
+                <Sul>
+                    <Sli data-aos="fade-right" data-aos-easing="linear" data-aos-duration="1000" >
+                        <Ssquare onClick={()=>{setGrid(true)}}>
+                            <SinnerS>
+                                스마트 그리드
+                            </SinnerS>
+                        </Ssquare>
+                    </Sli>
+                    <Sli data-aos="fade-left" data-aos-easing="linear" data-aos-duration="1000" >
+                        <Ssquare onClick={()=>{setServ(true)}}>
+                            <SinnerS>
+                                전력 거래 중개 서비스
+                            </SinnerS>
+                        </Ssquare>
+                    </Sli>
+                </Sul>
+                <Sul>
+                    <Sli data-aos="fade-down" data-aos-easing="linear" data-aos-duration="800" >
+                        <Slink><Link to={'/data_collection'} style={{ textDecoration: 'none', color : 'white'}}><SinnerShortC>연구과정 바로가기</SinnerShortC></Link></Slink>
+                    </Sli>
+                    <Sli data-aos="fade-down" data-aos-easing="linear" data-aos-duration="800" >
+                        <Slink><Link to={'/graph_predict'} style={{ textDecoration: 'none', color : 'white'}}><SinnerShortC>그래프 에측 바로가기</SinnerShortC></Link></Slink>
+                    </Sli>
+                </Sul>
+            </Scontainorb>
         </>
     )
 }

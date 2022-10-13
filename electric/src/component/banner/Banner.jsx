@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from 'styled-components';
 
 const Snav = styled.div`
@@ -43,11 +44,11 @@ const Banner = () =>{
     return(
         <>
         <Snav>
-        <Smain><Stext>Electricity</Stext></Smain>
+        <Smain><Link to={'/'} style={{ textDecoration: 'none', color : 'black'}}><Stext>Electricity</Stext></Link></Smain>
         <Sul>
-            <Sli><Stext>연구과정</Stext></Sli>
-            <Sli><Stext>그래프 예측</Stext></Sli>
-            <Sli><Stext>참고 자료</Stext></Sli>
+            <Sli><Link to={'/data_collection'} style={{ textDecoration: 'none', color : 'black'}}><Stext>연구과정</Stext></Link></Sli>
+            <Sli><Link to={'/graph_predict'} style={{ textDecoration: 'none', color : 'black'}}><Stext>그래프 예측</Stext></Link></Sli>
+            <Sli><Link to={'/reference'} style={{ textDecoration: 'none', color : 'black'}}><Stext>참고 자료</Stext></Link></Sli>
         </Sul>
         </Snav>
         </>
