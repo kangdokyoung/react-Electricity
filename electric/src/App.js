@@ -1,13 +1,13 @@
 import { createGlobalStyle} from 'styled-components';
 import {RecoilRoot} from 'recoil';
 import Banner from './component/banner/Banner';
-import ImageSlide from './component/ImageSlide/ImageSlide';
-import Main from './component/main/Main';
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import MainPage from './page/MainPage';
 import DataCollection from './component/course/DataCollection';
 import GraphPredict from './component/graph/GraphPredict';
 import Reference from './component/reference/Reference';
+import DeepLearningModel from './component/course/DeepLearningModel';
+import DataPreprocessing from './component/course/DataPreprocessing';
 
 const GlobalStyle = createGlobalStyle`
   *{
@@ -34,6 +34,8 @@ function App() {
           <Routes>
             <Route path="/" element={<MainPage />} />
             <Route path="/data_collection" element={<DataCollection />} />
+            <Route path="/data_preprocessing" element={<DataPreprocessing />} />
+            <Route path="/deep_learning_model" element={<DeepLearningModel />} />
             <Route path="/graph_predict" element={<GraphPredict />} />
             <Route path="/reference" element={<Reference />} />
           </Routes>
