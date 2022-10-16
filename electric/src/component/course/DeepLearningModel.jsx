@@ -1,6 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
+import { modalbatch, modalfeature, modallayer, modalLSTM, modalresult, modalscaler, modalvalidation } from "../../Atoms/atom";
+import ModalBatch from "./modal/ModalBatch";
+import ModalFeature from "./modal/ModalFeature";
+import ModalLayer from "./modal/ModalLayer";
+import ModalScaler from "./modal/ModalScaler";
+import ModalValidation from "./modal/ModalValidation";
 
 const Scontainor = styled.div`
 
@@ -52,7 +59,37 @@ const SexpDetail = styled.div`
 
 const Sh1 = styled.h1`
 `
+
+const SmodalUl = styled.ul`
+    display:flex;
+    flex-wrap: wrap;
+    justify-content:center;
+`
+
+const Smodal = styled.li`
+    list-style-type: none;
+    height: 30px;
+    background-color: rgb(142, 214, 255);
+    margin-top: 10px;
+    color: white;
+    border-radius: 53px;
+    cursor: pointer;
+    width: 300px;
+    text-align:center;
+    margin-right: 5px;
+    transition: all 0.2s linear;
+    :hover{
+        transform:scale(1.05);
+    }
+`
 const DeepLearningModel = ()=>{
+    const [,setFeature] = useRecoilState(modalfeature);
+    const [,setLayer] = useRecoilState(modallayer);
+    const [,setBatch] = useRecoilState(modalbatch);
+    const [,setValidation] = useRecoilState(modalvalidation);
+    const [,setScaler] = useRecoilState(modalscaler);
+    const [,setLSTM] = useRecoilState(modalLSTM);
+    const [,setResult] = useRecoilState(modalresult);
 
     return(
         <>
@@ -63,6 +100,11 @@ const DeepLearningModel = ()=>{
                 <Sli><Link to={'/deep_learning_model'} style={{ textDecoration: 'none', color : 'black'}}><SMainText>딥러닝 모델</SMainText></Link></Sli>
             </Sul>
         </Snav>
+        <ModalFeature />
+        <ModalLayer />
+        <ModalBatch />
+        <ModalValidation />
+        <ModalScaler />
         <Scontainor>
             <Sexplain>
                 <SexpDetail>
@@ -83,6 +125,15 @@ const DeepLearningModel = ()=>{
                 </SexpDetail>
             </Sexplain>
         </Scontainor>
+        <SmodalUl>
+            <Smodal onClick={()=>setFeature(true)}>Feature값에서 Watt 포함여부</Smodal>
+            <Smodal onClick={()=>setLayer(true)}>Dene Layer 구조변경</Smodal>
+            <Smodal onClick={()=>setBatch(true)}>Batch Size 변경</Smodal>
+            <Smodal onClick={()=>setValidation(true)}>Validation date 설정</Smodal>
+            <Smodal onClick={()=>setScaler(true)}>데이터 스케일러 설정</Smodal>
+            <Smodal onClick={()=>setLSTM(true)}>양방향 LSTM 활성화 함수 지정 여부</Smodal>
+            <Smodal onClick={()=>setResult(true)}>실험 결과</Smodal>
+        </SmodalUl>
         </>
     )
 }
