@@ -6,6 +6,8 @@ import { modalbatch, modalfeature, modallayer, modalLSTM, modalresult, modalscal
 import ModalBatch from "./modal/ModalBatch";
 import ModalFeature from "./modal/ModalFeature";
 import ModalLayer from "./modal/ModalLayer";
+import ModalLSTM from "./modal/ModalLSTM";
+import ModalResult from "./modal/ModalResult";
 import ModalScaler from "./modal/ModalScaler";
 import ModalValidation from "./modal/ModalValidation";
 
@@ -105,6 +107,8 @@ const DeepLearningModel = ()=>{
         <ModalBatch />
         <ModalValidation />
         <ModalScaler />
+        <ModalLSTM />
+        <ModalResult />
         <Scontainor>
             <Sexplain>
                 <SexpDetail>
