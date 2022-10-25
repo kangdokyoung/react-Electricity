@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-
+import Graph from "./Graph";
 const Scontainor = styled.div`
     display:flex;
     flex-direction:column;
@@ -41,8 +41,20 @@ const Ssel_month = styled.select`
         cursor:pointer;
     }
 `
-const GraphPredict = ()=>{
 
+const GraphContainor = styled.div`
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    width: 85%;
+`
+
+const GraphPredict = ()=>{
+    const [month, setMonth] = useState(1);
+
+    const changeMonth = (e) => {
+        setMonth(e.target.value);
+    }
     return(
         <>
         <Scontainor>
@@ -53,7 +65,7 @@ const GraphPredict = ()=>{
                 해당 그래프는 2016년 영국 런던의 가정용 전력의 예측값과 실제값을 비교한 그래프 입니다.
             </Smain>
                 <Sselect>
-                    <Ssel_month type="number">
+                    <Ssel_month type="number" onChange={(e)=>{changeMonth(e)}}>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -68,6 +80,9 @@ const GraphPredict = ()=>{
                         <option value="12">12</option>
                     </Ssel_month>
                 </Sselect>
+            <GraphContainor>
+                <Graph month={month} />
+            </GraphContainor>
         </Scontainor>
         </>
     )

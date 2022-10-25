@@ -1,7 +1,7 @@
 //----------------------------------------express 실행
 const express = require('express');
 const app = express();
-const port = process.env.port||3005;
+const port = process.env.port||2007;
 //------------------------------------------mysql 연결
 const mysql = require('mysql');
 const {mysqlKey} = require('./mysqlKey.js');
