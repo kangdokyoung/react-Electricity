@@ -53,3 +53,11 @@ export const modalresult= atom({
   key : 'course/ModalResult',
   default : false,
 });
+export const forcerender= atom({
+  key : 'forcerender',
+  default: 0,
+})
+export const selectedmonth = atom({
+  key: 'chart/selectedMonth',
+  default: 1,
+})

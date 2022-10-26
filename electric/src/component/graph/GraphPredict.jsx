@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import Graph from "./Graph";
+import { selectedmonth } from "../../Atoms/atom";
+import GraphLSTM from "./GraphLSTM";
 const Scontainor = styled.div`
     display:flex;
     flex-direction:column;
@@ -50,11 +52,13 @@ const GraphContainor = styled.div`
 `
 
 const GraphPredict = ()=>{
-    const [month, setMonth] = useState(1);
+    const [month, setMonth] = useRecoilState(selectedmonth);
 
     const changeMonth = (e) => {
         setMonth(e.target.value);
     }
+    
+    useEffect(()=>{}, [month])
     return(
         <>
         <Scontainor>
@@ -81,7 +85,7 @@ const GraphPredict = ()=>{
                     </Ssel_month>
                 </Sselect>
             <GraphContainor>
-                <Graph month={month} />
+                <GraphLSTM month={month} />
             </GraphContainor>
         </Scontainor>
         </>
