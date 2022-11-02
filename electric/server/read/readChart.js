@@ -1,18 +1,22 @@
-const {mysqlKey}  = require('../mysqlKey');
 const mysql = require('mysql');
-const con = mysql.createConnection(mysqlKey);
+const con = mysql.createConnection({
+    host     : 'localhost',
+  user     : 'root',
+  password : 'ajdcjddl12!@#',
+  database : 'electricity'
+});
 
 exports.readChart = (req, res) => {
     console.log(req.body);
     const { month, type } = req.body;
     if(type == 'lstm'){
-        con.query(`SELECT * FROM lstm${month}m ORDER BY num`, (error, rows1, fields)=> {
+        con.query(`SELECT date_, preData, realData FROM ${month}mlstm ORDER BY num`, (error, rows1, fields)=> {
             if(error) throw error;
             res.send({success : 0, data : rows1})
         })
     }
     else {
-        con.query(`SELECT * FROM ${month}mcnn ORDER BY num`, (error, rows2, fields)=> {
+        con.query(`SELECT date_, preData, realData FROM ${month}mcnn ORDER BY num`, (error, rows2, fields)=> {
             if(error) throw error;
             res.send({success : 0, data : rows2})
         })

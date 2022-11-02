@@ -19,16 +19,23 @@ const GraphLSTM = () =>{
                 type: 'lstm',
             }
             }).then((res)=>{
-                console.log(res);
-                setLstm(res.data);
+                let sortedRes = res.data.data.map((data, i)=>{
+                    console.log(Object.values(data)[2]);
+                    return (
+                        [new Date(Object.values(data)[0]), Object.values(data)[1], Object.values(data)[2]]
+                    )
+                })
+                return sortedRes;
+            }).then((data)=>{
+                setLstm(data);
                 setRerender(prev=> prev+1);
-        })
+            })
     },[])
     
     return(
         <Chart
             chartType="LineChart"
-            data={[lstm]}
+            data={[["날짜", "실제 전력 값", "예측 전력 값"], ...lstm]}
             height="400px"
             options={{
                 title:`${month}월의 LSTM 모델로 1시간 단위로 예측한 그래프`,

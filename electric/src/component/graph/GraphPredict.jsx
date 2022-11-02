@@ -58,7 +58,6 @@ const GraphPredict = ()=>{
         setMonth(e.target.value);
     }
     
-    useEffect(()=>{}, [month])
     return(
         <>
         <Scontainor>
