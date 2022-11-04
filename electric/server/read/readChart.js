@@ -18,7 +18,7 @@ exports.readChart = (req, res) => {
     else {
         con.query(`SELECT date_, preData, realData FROM ${month}mcnn ORDER BY num`, (error, rows2, fields)=> {
             if(error) throw error;
-            res.send({success : 0, data : rows2})
+            res.send({success : 1, data : rows2})
         })
     }
 }

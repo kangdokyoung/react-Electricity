@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Chart } from "react-google-charts";
 import axios from "axios";
 import { useRecoilState } from "recoil";
-import { forcerender, isload, selectedmonth } from "../../Atoms/atom";
+import { forcerender, selectedmonth } from "../../Atoms/atom";
 
-const GraphLSTM = () =>{
+const GraphCnn = () =>{
     const [month, setMonth] = useRecoilState(selectedmonth);
     const [, setRerender]= useRecoilState(forcerender);
-    const [lstm, setLstm] = useState([]);
+    const [cnn, setCnn] = useState([]);
 
     useEffect(()=>{
         axios({
@@ -16,7 +16,7 @@ const GraphLSTM = () =>{
             withCredentials : true,
             data:{
                 month: month,
-                type: 'lstm',
+                type: 'cnn',
             }
             }).then((res)=>{
                 let sortedRes = res.data.data.map((data, i)=>{
@@ -26,7 +26,7 @@ const GraphLSTM = () =>{
                 })
                 return sortedRes;
             }).then((data)=>{
-                setLstm(data);
+                setCnn(data);
                 setRerender(prev=> prev+1);
             })
     },[month])
@@ -34,10 +34,10 @@ const GraphLSTM = () =>{
     return(
         <Chart
             chartType="LineChart"
-            data={[["날짜", "실제 전력 값", "예측 전력 값"], ...lstm]}
+            data={[["날짜", "실제 전력 값", "예측 전력 값"], ...cnn]}
             height="400px"
             options={{
-                title:`${month}월의 LSTM 모델로 1시간 단위로 예측한 그래프`,
+                title:`${month}월의 LSTM+CNN 모델로 1시간 단위로 예측한 그래프`,
                 legend: {position: 'bottom'},
                 chartArea: {width: "90%", height: "50%"},
                 selectionMode: "multiple",
@@ -68,11 +68,11 @@ const GraphLSTM = () =>{
                     minutes: {format: ['HH a Z', ':mm']},
                 }
                 },
-                colors: ['#2D9FF1', '#E22A2A' ],
+                colors: ['#6DCE21', '#351C6C'],
             }}
             legendToggle
         />
     )
 }
 
-export default GraphLSTM;
+export default GraphCnn;
