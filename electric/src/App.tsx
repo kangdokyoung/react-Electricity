@@ -1,13 +1,13 @@
 import { createGlobalStyle} from 'styled-components';
-import {RecoilRoot} from 'recoil';
-import Banner from './component/banner/Banner';
-import {BrowserRouter, Routes, Route} from "react-router-dom";
+import {BrowserRouter,Routes, Route} from "react-router-dom";
 import MainPage from './page/MainPage';
+import Banner from './component/banner/Banner';
 import DataCollection from './component/course/DataCollection';
 import GraphPredict from './component/graph/GraphPredict';
 import Reference from './component/reference/Reference';
 import DeepLearningModel from './component/course/DeepLearningModel';
 import DataPreprocessing from './component/course/DataPreprocessing';
+import { RecoilRoot } from 'recoil';
 
 const GlobalStyle = createGlobalStyle`
   *{
@@ -26,6 +26,7 @@ const GlobalStyle = createGlobalStyle`
 function App() {
   return (
     <RecoilRoot>
+
       <div className='App'>
         <GlobalStyle />
         {
