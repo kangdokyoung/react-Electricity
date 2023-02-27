@@ -1,4 +1,6 @@
-const mysql = require('mysql');
+import { Request, Response } from "express";
+import mysql from 'mysql';
+
 const con = mysql.createConnection({
     host     : 'localhost',
   user     : 'root',
@@ -6,7 +8,7 @@ const con = mysql.createConnection({
   database : 'electricity'
 });
 
-exports.readChart = (req, res) => {
+exports.readChart = (req:Request, res: Response) => {
     console.log(req.body);
     const { month, type } = req.body;
     if(type == 'lstm'){

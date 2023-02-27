@@ -2,7 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Chart } from "react-google-charts";
 import axios from "axios";
 import { useRecoilState } from "recoil";
-import { forcerender, isload, selectedmonth } from "../../Atoms/atom";
+import { forcerender, selectedmonth } from "../../Atoms/atom";
+
 
 const GraphLSTM = () =>{
     const [month, setMonth] = useRecoilState(selectedmonth);
