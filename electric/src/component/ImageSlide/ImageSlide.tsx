@@ -17,7 +17,7 @@ const Sslidebar = styled.div`
     justify-content: center;
 `
 
-const Scircle = styled. div`
+const Scircle = styled. div<{nowpic:number}>`
     border: 1px solid grey;
     margin:5px;
     padding:4px;
@@ -27,6 +27,11 @@ const Scircle = styled. div`
         cursor: pointer;
     }
 `
+
+type prop = {
+    nowpic: number
+}
+
 const ImageSlide = () =>{
     const [slideNum, setSlideNum] = useState(0);
 
@@ -36,8 +41,8 @@ const ImageSlide = () =>{
         "https://ifh.cc/g/StzmQK.png",
     ]
 
-    const useInterval = (callback, delay)=>{
-        const callbackRef = useRef();
+    const useInterval = (callback:()=>any, delay:number)=>{
+        const callbackRef = useRef(callback);
 
         useEffect(()=>{
             callbackRef.current = callback;

@@ -1,13 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { Chart } from "react-google-charts";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { useRecoilState } from "recoil";
 import { forcerender, selectedmonth } from "../../Atoms/atom";
+
+interface GraphData {
+    success: number;
+    data: {date_:Date, preData: number, realData: number}[];
+}
+
+type Processed = (Date|number)[][]
 
 const GraphCnn = () =>{
     const [month, setMonth] = useRecoilState(selectedmonth);
     const [, setRerender]= useRecoilState(forcerender);
-    const [cnn, setCnn] = useState([]);
+    const [cnn, setCnn] = useState<Processed>();
 
     useEffect(()=>{
         axios({
@@ -18,7 +25,7 @@ const GraphCnn = () =>{
                 month: month,
                 type: 'cnn',
             }
-            }).then((res)=>{
+            }).then((res:AxiosResponse<GraphData>)=>{
                 let sortedRes = res.data.data.map((data, i)=>{
                     return (
                         [new Date(Object.values(data)[0]), Object.values(data)[1], Object.values(data)[2]]
@@ -34,8 +41,9 @@ const GraphCnn = () =>{
     return(
         <Chart
             chartType="LineChart"
-            data={[["날짜", "실제 전력 값", "예측 전력 값"], ...cnn]}
+            data={[["날짜", "실제 전력 값", "예측 전력 값"], {...cnn}]}
             height="400px"
+            width="100%"
             options={{
                 title:`${month}월의 LSTM+CNN 모델로 1시간 단위로 예측한 그래프`,
                 legend: {position: 'bottom'},
@@ -52,8 +60,6 @@ const GraphCnn = () =>{
                 trigger: 'both',
                 orientation: 'vertical',
                 },
-                width: '100%',
-                height: '30vh',
                 haxis:{
                 gridlines: {
                     units: {

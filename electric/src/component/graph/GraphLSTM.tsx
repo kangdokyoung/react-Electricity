@@ -1,14 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { Chart } from "react-google-charts";
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { useRecoilState } from "recoil";
 import { forcerender, selectedmonth } from "../../Atoms/atom";
 
+interface GraphData  {
+    success: number;
+    data: {date_:Date, preData: number, realData: number}[];
+}
+
+type Processed = (Date|number)[][]
 
 const GraphLSTM = () =>{
     const [month, setMonth] = useRecoilState(selectedmonth);
     const [, setRerender]= useRecoilState(forcerender);
-    const [lstm, setLstm] = useState([]);
+    const [lstm, setLstm] = useState<Processed>();
 
     useEffect(()=>{
         axios({
@@ -19,7 +25,7 @@ const GraphLSTM = () =>{
                 month: month,
                 type: 'lstm',
             }
-            }).then((res)=>{
+            }).then((res:AxiosResponse<GraphData>)=>{
                 let sortedRes = res.data.data.map((data, i)=>{
                     return (
                         [new Date(Object.values(data)[0]), Object.values(data)[1], Object.values(data)[2]]
@@ -27,6 +33,7 @@ const GraphLSTM = () =>{
                 })
                 return sortedRes;
             }).then((data)=>{
+                console.log(data);
                 setLstm(data);
                 setRerender(prev=> prev+1);
             })
@@ -35,11 +42,13 @@ const GraphLSTM = () =>{
     return(
         <Chart
             chartType="LineChart"
-            data={[["날짜", "실제 전력 값", "예측 전력 값"], ...lstm]}
+            data={[["날짜", "실제 전력 값", "예측 전력 값"], {...lstm}]}
             height="400px"
             options={{
                 title:`${month}월의 LSTM 모델로 1시간 단위로 예측한 그래프`,
                 legend: {position: 'bottom'},
+                width: 100,
+                height: 30,
                 chartArea: {width: "90%", height: "50%"},
                 selectionMode: "multiple",
                 tooltip: {trigger: 'both'},
@@ -50,24 +59,22 @@ const GraphLSTM = () =>{
                 actions: ['dragToZoom', 'rightClickToReset']
                 },
                 crosshair: {
-                trigger: 'both',
-                orientation: 'vertical',
+                    trigger: 'both',
+                    orientation: 'vertical',
                 },
-                width: '100%',
-                height: '30vh',
                 haxis:{
-                gridlines: {
-                    units: {
-                    days: {format: ['dd일']},
-                    hours: {format: ['HH', 'ha']},
+                    gridlines: {
+                        units: {
+                        days: {format: ['dd일']},
+                        hours: {format: ['HH', 'ha']},
+                        }
                     }
-                }
                 },
                 minorGridlines: {
-                units: {
-                    hours: {format: ['hh a', 'ha']},
-                    minutes: {format: ['HH a Z', ':mm']},
-                }
+                    units: {
+                        hours: {format: ['hh a', 'ha']},
+                        minutes: {format: ['HH a Z', ':mm']},
+                    }
                 },
                 colors: ['#2D9FF1', '#E22A2A' ],
             }}
