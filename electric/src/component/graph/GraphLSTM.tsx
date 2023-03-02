@@ -9,7 +9,7 @@ interface GraphData  {
     data: {date_:Date, preData: number, realData: number}[];
 }
 
-type Processed = (Date|number)[][]
+type Processed = (Date|number|string)[][]
 
 const GraphLSTM = () =>{
     const [month, setMonth] = useRecoilState(selectedmonth);
@@ -34,7 +34,7 @@ const GraphLSTM = () =>{
                 return sortedRes;
             }).then((data)=>{
                 console.log(data);
-                setLstm(data);
+                setLstm([["날짜", "실제 전력 값", "예측 전력 값"], ...data]);
                 setRerender(prev=> prev+1);
             })
     },[month])
@@ -42,13 +42,12 @@ const GraphLSTM = () =>{
     return(
         <Chart
             chartType="LineChart"
-            data={[["날짜", "실제 전력 값", "예측 전력 값"], {...lstm}]}
+            data={lstm}
             height="400px"
+            width="100%"
             options={{
                 title:`${month}월의 LSTM 모델로 1시간 단위로 예측한 그래프`,
                 legend: {position: 'bottom'},
-                width: 100,
-                height: 30,
                 chartArea: {width: "90%", height: "50%"},
                 selectionMode: "multiple",
                 tooltip: {trigger: 'both'},

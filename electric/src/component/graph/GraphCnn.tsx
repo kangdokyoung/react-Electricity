@@ -9,7 +9,7 @@ interface GraphData {
     data: {date_:Date, preData: number, realData: number}[];
 }
 
-type Processed = (Date|number)[][]
+type Processed = (Date|number|string)[][]
 
 const GraphCnn = () =>{
     const [month, setMonth] = useRecoilState(selectedmonth);
@@ -33,7 +33,7 @@ const GraphCnn = () =>{
                 })
                 return sortedRes;
             }).then((data)=>{
-                setCnn(data);
+                setCnn([["날짜", "실제 전력 값", "예측 전력 값"], ...data]);
                 setRerender(prev=> prev+1);
             })
     },[month])
@@ -41,7 +41,7 @@ const GraphCnn = () =>{
     return(
         <Chart
             chartType="LineChart"
-            data={[["날짜", "실제 전력 값", "예측 전력 값"], {...cnn}]}
+            data={cnn}
             height="400px"
             width="100%"
             options={{
