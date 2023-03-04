@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { FC } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
-import { isload, selectedmonth } from "../../Atoms/atom";
+import { selectedmonth } from "../../Atoms/atom";
 import GraphCnn from "./GraphCnn";
 import GraphLSTM from "./GraphLSTM";
 const Scontainor = styled.div`
@@ -95,11 +95,13 @@ const Sexplain = styled.div`
     font-weight: bold;
     margin-bottom: 30px;
 `
+
 const GraphPredict = ()=>{
     const [month, setMonth] = useRecoilState(selectedmonth);
 
-    const changeMonth = (e) => {
-        setMonth(e.target.value);
+    const changeMonth = (e:React.ChangeEvent<HTMLSelectElement>) => {
+        const value = Number(e.target.value);
+        setMonth(value);
     }
     
     return(
@@ -112,7 +114,7 @@ const GraphPredict = ()=>{
                 해당 그래프는 2016년 영국 런던의 가정용 전력의 예측값과 실제값을 비교한 그래프 입니다.
             </Smain>
                 <Sselect>
-                    <Ssel_month type="number" onChange={(e)=>{changeMonth(e)}}>
+                    <Ssel_month name="number" onChange={changeMonth}>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -128,8 +130,8 @@ const GraphPredict = ()=>{
                     </Ssel_month>
                 </Sselect>
                 <GraphContainor>
-                    <GraphLSTM month={month} />
-                    <GraphCnn month={month} />
+                    <GraphLSTM />
+                    <GraphCnn />
                 </GraphContainor>
                 <Simgdiv>
                 <Straining>
