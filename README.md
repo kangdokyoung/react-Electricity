@@ -8,5 +8,5 @@
 
 * recoil 라이브러리를 이용한 상태관리
 * AOS 라이브러리를 사용한 스크롤에 따른 컴포넌트의 애니메이션
-* express, mysql의 query를 사용한 front와 back의 데이터 교환
+* express, mysql의 Ajax 통신을 사용한 front와 back의 데이터 교환
 * react-google-charts 라이브러리를 사용한 데이터의 차트화
